@@ -1,11 +1,3 @@
-function highlightHeader() {
-	document.getElementById("header-h1").style.color = "white";
-}
-
-function unhighlightHeader() {
-    document.getElementById("header-h1").style.color = "black";
-}
-
 function validate() {
 	var error = {numErrors: 0, textColor:"black", errorColor:"#ffa3a3", okColor:"white"};
         
