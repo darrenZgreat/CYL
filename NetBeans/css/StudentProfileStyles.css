@@ -1,0 +1,154 @@
+body {
+    width: 1200px;
+    margin: 0 auto 0 auto;
+}
+header {
+    width: 100%;
+    background-color: #e6dac8;
+    color: black;
+    text-align: center;
+}
+header h3 {
+    color: white;
+}
+main {
+    width: 70%;
+    height: 565px;
+    overflow: auto;
+    float: left;
+}
+.left-buffer {
+    width: 0.75%;
+    height: 565px;
+    background-color: #eeeeee;
+    float: left;
+}
+aside {
+    width: 29.25%;
+    height: 565px;
+    background-color: #eeeeee;
+    float: left;
+}
+aside h2 {
+    text-align: center;
+}
+footer {
+    width: 100%;
+    background-color: #363736;
+    color: white;
+    text-align: center;
+    clear: both;
+}
+.picture {
+    height: 300px;
+    width: 300px;
+}
+p, small {
+    margin: 0 0 0 15px;
+}
+p {
+    display: inline-block;
+}
+.errorMessage {
+    color: #ff4f4f;
+    visibility: hidden;
+}
+.first {
+    margin-top: 15px;
+}
+input {
+    padding: 4px;
+    font-size: 13px;
+    border-left: none;
+    border-top: none;
+    border-right-style: dotted;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-right-width: .5px;
+    border-color: #ef8724;
+}
+.input-left {
+    margin-left: 15px;
+}
+.col-2-2-top p, .col-2-2-top small, .col-2-2-top input {
+    margin-left: 0;
+}
+.file-picture {
+    padding: 0;
+    margin-left: 40px;
+}
+.file {
+    border: none;
+}
+textarea {
+    margin: 5px 15px;
+    padding: 4px;
+    font-size: 13px;
+    border-color: #ef8724;
+    resize: none;
+}
+fieldset {
+    margin: 0;
+    padding: 0;
+    height: 330px;
+    border: none;
+}
+.row {
+    height: 330px;
+}
+.row-border {
+    height: 8px;
+    width: 100%;
+    background-color: #eeeeee;
+}
+.tall {
+    height: 370px;
+}
+.col-1-2, .col-2-2, .col-1-2-top, .col-2-2-top, .col-border, .col-buffer {
+    display: inline-table;
+    vertical-align: top;
+    margin: 0;
+    padding: 0;
+}
+.col-1-2, .col-2-2 {
+    width: 49.5%;
+}
+.col-border {
+    height: 100%;
+    width: 1%;
+    background-color: #eeeeee;
+}
+.col-1-2-top {
+    width: 49%;
+}
+.col-2-2-top {
+    width: 51%;
+}
+.submit {
+    width: 100%;
+}
+.submit input {
+    width: 180px;
+    margin: 0 326px;
+    border-width: 4px;
+    border-style: outset;
+    border-color: #363736;
+}
+.submit input:active {
+    border-style: inset;
+}
+.reporting {
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+.reporting h3 {
+    margin-bottom: 0;
+}
+.shareButton {
+    cursor: pointer;
+}
+.graph {
+    height: 85%;
+    width: 85%;
+}
