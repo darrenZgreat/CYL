@@ -214,7 +214,7 @@ and open the template in the editor.
         </main>
         
         <?php
-            include '../aside.html';
+            include '../asideStudentProfile.html';
             include '../footer.html';
         ?>
     </body>
