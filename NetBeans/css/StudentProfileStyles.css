@@ -53,6 +53,27 @@ p {
     color: #ff4f4f;
     visibility: hidden;
 }
+#usernameerror, #passworderror, #confirmpassworderror, #standingerror {
+    margin-left: 85px;
+}
+#highschoolerror {
+    margin-left: 100px;
+}
+#graddateerror {
+    margin-left: 125px;
+}
+#alumnierror {
+    margin-left: 115px;
+}
+#internshiperror {
+    margin-left: 90px;
+}
+#universityerror {
+    margin-left: 145px;
+}
+#workerror {
+    margin-left: 135px;
+}
 .first {
     margin-top: 15px;
 }

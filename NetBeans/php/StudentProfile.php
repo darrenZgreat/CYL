@@ -22,7 +22,7 @@ and open the template in the editor.
         ?>
         <div class="left-buffer"></div>
         <main>
-            <form enctype="multipart/form-data" action="UpdateStudentProfile.php" method="post" onsubmit="return validate()">
+            <form enctype="multipart/form-data" action="UpdateStudentProfile.php" method="post" onsubmit="return validate(1)">
             <div class="tall">
                 <div class="col-1-2-top">
                     <fieldset class="tall">
@@ -39,7 +39,7 @@ and open the template in the editor.
                     <p>Member since:</p><input type="text" name="since" readonly value="<?php echo $student->since; ?>" size="10">
                     <br><small></small><br>
                     <input class="input-left" id="street" type="text" name="street" value="<?php echo $student->street; ?>"><br>
-                    <small class="errorMessage" id="streeterror">Street Address: required; e.g. 822 Street Way</small><br>
+                    <small class="errorMessage" id="streeterror"></small><br>
                     <input class="input-left" id="city" type="text" name="city" value="<?php echo $student->city; ?>">,
                     <!--<input id="state" type="text" name="state" value="CO">-->
                     <select id="state" name="state">
@@ -95,13 +95,14 @@ and open the template in the editor.
                         <option value="WI" <?php if($student->state==="WI"){echo "selected";} ?>>Wisconsin</option>
                         <option value="WY" <?php if($student->state==="WY"){echo "selected";} ?>>Wyoming</option>
                     </select><br>
-                    <small class="errorMessage" id="cityerror">City: required; e.g. Golden</small><small class="errorMessage" id="stateerror">State: required; e.g. CO</small><br>
+                    <small class="errorMessage" id="cityerror">------------------------------------------</small>
+                    <small class="errorMessage" id="stateerror"></small><br>
                     <input class="input-left" id="zip" type="text" name="zip" value="<?php echo $student->zip; ?>"><br>
-                    <small class="errorMessage" id="ziperror">Zip: required; e.g. 80400</small><br>
+                    <small class="errorMessage" id="ziperror"></small><br>
                     <input class="input-left" id="county" type="text" name="county" value="<?php echo $student->county; ?>">&nbsp;County<br>
-                    <small class="errorMessage" id="countyerror">County: required; e.g. Jefferson</small><br>
+                    <small class="errorMessage" id="countyerror"></small><br>
                     <input class="input-left" id="phone" type="text" name="phone" value="<?php echo $student->phone; ?>"><br>
-                    <small class="errorMessage" id="phoneerror">Phone Number: required; ex. 303-555-5555</small><br>
+                    <small class="errorMessage" id="phoneerror"></small><br>
                 </fieldset>
                 </div>
             </div>
@@ -112,15 +113,15 @@ and open the template in the editor.
                     <input class="input-left first" type="text" name="chapter" readonly value="<?php echo $student->chapter; ?>">&nbsp;Chapter
                     <br><small></small><br>
                     <p>Username:</p><input id="username" type="text" name="username" value="<?php echo $student->username; ?>"><br>
-                    <small class="errorMessage" id="usernameerror">Username: letters and numbers only</small><br>
+                    <small class="errorMessage" id="usernameerror"></small><br>
                     <p>Change<br>Password:</p><input id="password" type="password" name="password"><br>
-                    <small class="errorMessage" id="passworderror">Password: 8 character min; 1 uppercase, 1 lowercase, 1 number</small><br>
+                    <small class="errorMessage" id="passworderror"></small><br>
                     <p>Confirm<br>Password:</p><input id="confirmpassword" type="password" name="confirmpassword"><br>
-                    <small class="errorMessage" id="confirmpassworderror">This password does not match.</small><br>
+                    <small class="errorMessage" id="confirmpassworderror"></small><br>
                     <input class="input-left" type="text" name="country" readonly value="<?php echo $student->country; ?>">
                     <br><small></small><br>
                     <input class="input-left" id="email" type="email" name="email" value="<?php echo $student->email; ?>"><br>
-                    <small class="errorMessage" id="emailerror">e-mail: required; e.g. email@cyl.org</small><br>
+                    <small class="errorMessage" id="emailerror"></small><br>
                 </fieldset>
                 </div><div class="col-border">
                 </div><div class="col-2-2">
@@ -128,7 +129,7 @@ and open the template in the editor.
                     <p class="first">Birthdate:</p><input type="text" name="birthdate" readonly value="<?php echo $student->birthdate; ?>" size="9">
                     <br><small></small><br>
                     <p>High School:</p><input id="highschool" type="text" name="highschool" value="<?php echo $student->highschool; ?>" size="25"><br>
-                    <small class="errorMessage" id="highschoolerror">High School: required; e.g. Golden High School</small><br>
+                    <small class="errorMessage" id="highschoolerror"></small><br>
                     <p>Standing:</p><!--<input id="standing" type="text" name="standing" value="Senior"><br>-->
                     <select id="standing" name="standing">
                         <option value="Freshman" <?php if($student->standing==="Freshman"){echo "selected";} ?>>Freshman</option>
@@ -138,9 +139,9 @@ and open the template in the editor.
                         <option class="underscore" disabled>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</option>
                         <option value="Alumni" <?php if($student->standing==="Alumni"){echo "selected";} ?>>Alumni</option>
                     </select><br>
-                    <small class="errorMessage" id="standingerror">Year: required; Freshman, Sophomore, Junior, Senior, Alumni</small><br>
+                    <small class="errorMessage" id="standingerror"></small><br>
                     <p>Graduation Date:</p><input id="graddate" type="text" name="graddate" value="<?php echo $student->graddate; ?>" size="5"><br>
-                    <small class="errorMessage" id="graddateerror">Graduation Date: required; e.g. mm/yy</small><br>
+                    <small class="errorMessage" id="graddateerror"></small><br>
                     <p>Extracurricular Activities:</p><br><textarea id="activities" name="activities" rows="5" cols="30"><?php echo $student->activities; ?></textarea>
                 </fieldset>                    
                 </div>
@@ -170,7 +171,7 @@ and open the template in the editor.
                     <img src="/img/exampleLEMbadges.jpg" alt="LEM Badges">
                     <br><br>
                     <p>Preferred Nonprofit Partner:</p><br><input class="input-left" id="preferrednonprofit" type="text" name="preferrednonprofit" value="<?php echo $student->preferrednonprofit; ?>" size="25"><br>
-                    <small class="errorMessage" id="preferrednonprofiterror">Preferred Nonprofit Partner: letters only</small><br>
+                    <small class="errorMessage" id="preferrednonprofiterror"></small><br>
                 </fieldset> 
                 </div><div class="col-border">
                 </div><div class="col-2-2">                   
@@ -186,13 +187,13 @@ and open the template in the editor.
                         <option class="underscore" disabled>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</option>
                         <option value="Other" <?php if($student->alumni==="Other"){echo "selected";} ?>>Other</option>
                     </select><br>
-                    <small class="errorMessage" id="alumnierror">CYL Alumni: Volunteer, Intern, Staff, Board Member, Other</small><br>
+                    <small class="errorMessage" id="alumnierror"></small><br>
                     <p>Internship:</p><input id="internship" type="text" name="internship" value="<?php echo $student->internship; ?>" size="32"><br>
-                    <small class="errorMessage" id="internshiperror">Internship: letters only</small><br>
+                    <small class="errorMessage" id="internshiperror"></small><br>
                     <p>University/College:</p><input id="university" type="text" name="university" value="<?php echo $student->university; ?>" size="25"><br>
-                    <small class="errorMessage" id="universityerror">University/College: letters only</small><br>
+                    <small class="errorMessage" id="universityerror"></small><br>
                     <p>Work Experience:</p><input id="work" type="text" name="work" value="<?php echo $student->work; ?>" size="26"><br>
-                    <small class="errorMessage" id="workerror">Work Experience: letters only</small><br>
+                    <small class="errorMessage" id="workerror"></small><br>
                     <p>Letters of Recommendation:</p><br><input class="file input-left" type="file" name="letter" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"><br>
                     <p>Resume:</p><br><input class="file input-left" type="file" name="resume" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"><br>
                 </fieldset>
