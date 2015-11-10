@@ -56,7 +56,7 @@
     
     if($student->validate())
     {
-        $student->password = md5($student->password);
+        //$student->password = md5($student->password);
         updateStudent(1,$student);
         if(!checkUsername(1, $student))
         {
