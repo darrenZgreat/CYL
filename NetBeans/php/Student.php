@@ -42,7 +42,7 @@ class Student {
                 preg_match("/^.+@.+\..+$/", $this->email) &&
                 preg_match("/^([a-z]+ {0,1})+$/i", $this->highschool) &&
                 preg_match("/^((Freshman)|(Sophomore)|(Junior)|(Senior)|(Alumni))$/i", $this->standing) &&
-                preg_match("/^(12{0,1}|11{0,1}|10{0,1}|(0{0,1}[1-9]))\/[0-9][0-9]$/i", $this->graddate) &&
+                preg_match("/^([10-12]{0,1}|(0{0,1}[1-9]))\/[0-9][0-9]$/i", $this->graddate) &&
                 preg_match("/^(([a-z]+ {0,1})+){0,1}$/i", $this->preferrednonprofit) &&
                 preg_match("/^((Volunteer)|(Intern)|(Staff)|(Board Member)|(Other)){0,1}$/i", $this->alumni) &&
                 preg_match("/^(([a-z]+ {0,1})+){0,1}$/i", $this->internship) &&
