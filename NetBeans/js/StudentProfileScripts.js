@@ -1,83 +1,193 @@
-var error = {numErrors: 0, errorColor:"white", okColor:"white"};
+var error = {numErrors: 0, pictureUploadError: false, letterUploadError: false, resumeUploadError: false, errorColor:"white", okColor:"white"};
 
 function validate(identifier) {
-        error.numErrors = 0;
-        error.errorColor = "#ffa3a3"
+    error.numErrors = 0;
+    error.errorColor = "#ffa3a3";
+
+    validateWork();
+    validateUniversity();
+    validateInternship();
+    validateAlumni();
+
+    validatePreferrednonprofit();
+
+    validateGraddate();
+    validateStanding();
+    validateHighschool();       
+
+    validateEmail();
+    validateConfirmPassword();
+    validatePassword();
+    validateUsername(identifier);
+
+    validatePhone();
+    validateCounty();
+    validateZip();
+    validateState();
+    validateCity();
+    validateStreet();
     
-        validateWork();
-        validateUniversity();
-        validateInternship();
-        validateAlumni();
-        
-        validatePreferrednonprofit();
-        
-	validateGraddate();
-        validateStanding();
-	validateHighschool();       
-        
-        validateEmail();
-        validateConfirmPassword();
-        validatePassword();
-	validateUsername(identifier);
-        
-        validatePhone();
-        validateCounty();
-        validateZip();
-        validateState();
-        validateCity();
-        validateStreet();
-  
-	if(error.numErrors>0) return false;
-	else return true;
+    if(error.numErrors>0 || error.pictureUploadError || error.letterUploadError || error.resumeUploadError) 
+    {
+        if(error.pictureUploadError)
+        {
+            document.getElementById("pictureupload").focus();
+        }
+        else if(error.letterUploadError)
+        {
+            document.getElementById("letterupload").focus();
+        }
+        else if(error.resumeUploadError)
+        {
+            document.getElementById("resumeupload").focus();
+        }
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 
-function validateElement(id, errorText, regex, error)
+function validatePicture()
 {
-	var input = document.getElementById(id).value;
+    var fileUpload = document.getElementById("pictureupload");
+    var errorElement = document.getElementById("pictureuploaderror");
+    errorElement.style.visibility="hidden";
+
+    if (typeof(fileUpload.files)!=="undefined" && typeof(fileUpload.files[0])!=="undefined")
+    {
+        if(fileUpload.files[0].size>2100000)
+        {
+            errorElement.innerHTML="That picture is greater than 2.1MB in size, try again.";
+            errorElement.style.visibility="visible";
+            error.pictureUploadError = true;
+        }
+        else
+        {
+            //Initiate the FileReader object.
+            var reader = new FileReader();
+            //Read the contents of Image File.
+            reader.readAsDataURL(fileUpload.files[0]);
+            reader.onload = function (e) {
+                //Initiate the JavaScript Image object.
+                var image = new Image();
+                //Set the Base64 string return from FileReader as source.
+                image.src = e.target.result;
+
+                //Validate the File Height and Width.
+                image.onload = function () {
+                    var height = this.height;
+                    var width = this.width;
+                    if (height !== width) 
+                    {
+                        errorElement.innerHTML="That picture is not a square, try again.";
+                        errorElement.style.visibility="visible";
+                        error.pictureUploadError = true;
+                    }
+                    else 
+                    {
+                        error.pictureUploadError = false;
+                    }
+                };
+
+            };
+        }
+    
+    }
+}
+
+function validateLetter()
+{
+    var fileUpload = document.getElementById("letterupload");
+    var errorElement = document.getElementById("letteruploaderror");
+    errorElement.style.visibility="hidden";
+
+    if (typeof(fileUpload.files)!=="undefined" && typeof(fileUpload.files[0])!=="undefined")
+    {
+        if(fileUpload.files[0].size>2100000)
+        {
+            errorElement.innerHTML="Your file is greater than 2.1MB in size, try again.";
+            errorElement.style.visibility="visible";
+            error.letterUploadError=true;
+        }
+        else 
+        {
+            error.letterUploadError=false;
+        }    
+    }
+}
+
+function validateResume()
+{
+    var fileUpload = document.getElementById("resumeupload");
+    var errorElement = document.getElementById("resumeuploaderror");
+    errorElement.style.visibility="hidden";
+
+    if (typeof(fileUpload.files)!=="undefined" && typeof(fileUpload.files[0])!=="undefined")
+    {
+        if(fileUpload.files[0].size>2100000)
+        {
+            errorElement.innerHTML="Your file is greater than 2.1MB in size, try again.";
+            errorElement.style.visibility="visible";
+            error.resumeUploadError=true;
+        }
+        else 
+        {
+            error.resumeUploadError=false;
+        }    
+    }
+}
+
+function validateElement(id, errorText, regex)
+{
+    var element = document.getElementById(id);
+    var errorElement = document.getElementById(id+"error");
+	var input = element.value;
 	if(!regex.test(input))
 	{
-		document.getElementById(id).style.backgroundColor = error.errorColor;
-                document.getElementById(id).focus();
-                document.getElementById(id+"error").innerHTML=errorText;
-                document.getElementById(id+"error").style.visibility="visible";
+		element.style.backgroundColor = error.errorColor;
+                element.focus();
+                errorElement.innerHTML=errorText;
+                errorElement.style.visibility="visible";
 		error.numErrors++;
 	}
 	else
         {
-            document.getElementById(id).style.backgroundColor = error.okColor;
-            document.getElementById(id+"error").style.visibility="hidden";
+            element.style.backgroundColor = error.okColor;
+            errorElement.style.visibility="hidden";
         }
 }
 
 function validateStreet()
 {
-    validateElement("street", "Street Address: required; e.g. 822 Street Way", /^[0-9]+ ([a-z]+ {0,1})+$/i, error);
+    validateElement("street", "Street Address: required; e.g. 822 Street Way", /^[0-9]+ ([a-z]+ {0,1})+$/i);
 }
 
 function validateCity()
 {
-    //message is followed by spaces to preserve spacing before the state error message
-    validateElement("city", "City: required; e.g. Golden&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", /^([a-z]+ {0,1})+$/i, error);
+    //message is followed by spaces to preserve spacing before the state  message
+    validateElement("city", "City: required; e.g. Golden&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", /^([a-z]+ {0,1})+$/i);
 }
 
 function validateState()
 {
-    validateElement("state", "State: required; e.g. CO", /^((AL)|(AK)|(AZ)|(AR)|(CA)|(CO)|(CT)|(DE)|(DC)|(FL)|(GA)|(HI)|(ID)|(IL)|(IN)|(IA)|(KS)|(KY)|(LA)|(ME)|(MD)|(MA)|(MI)|(MN)|(MS)|(MO)|(MT)|(NE)|(NV)|(NH)|(NJ)|(NM)|(NY)|(NC)|(ND)|(OH)|(OK)|(OR)|(PA)|(RI)|(SC)|(SD)|(TN)|(TX)|(UT)|(VT)|(VA)|(WA)|(WV)|(WI)|(WY))$/i, error);
+    validateElement("state", "State: required; e.g. CO", /^((AL)|(AK)|(AZ)|(AR)|(CA)|(CO)|(CT)|(DE)|(DC)|(FL)|(GA)|(HI)|(ID)|(IL)|(IN)|(IA)|(KS)|(KY)|(LA)|(ME)|(MD)|(MA)|(MI)|(MN)|(MS)|(MO)|(MT)|(NE)|(NV)|(NH)|(NJ)|(NM)|(NY)|(NC)|(ND)|(OH)|(OK)|(OR)|(PA)|(RI)|(SC)|(SD)|(TN)|(TX)|(UT)|(VT)|(VA)|(WA)|(WV)|(WI)|(WY))$/i);
 }
 
 function validateZip()
 {
-    validateElement("zip", "Zip: required; e.g. 80400", /^[0-9]{5}$/, error);
+    validateElement("zip", "Zip: required; e.g. 80400", /^[0-9]{5}$/);
 }
 
 function validateCounty()
 {
-    validateElement("county", "County: required; e.g. Jefferson", /^([a-z]+ {0,1})+$/i, error);
+    validateElement("county", "County: required; e.g. Jefferson", /^([a-z]+ {0,1})+$/i);
 }
 
 function validatePhone()
 {
-    validateElement("phone", "Phone Number: required; ex. 303-555-5555", /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/, error);
+    validateElement("phone", "Phone Number: required; ex. 303-555-5555", /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/);
 }
 
 function validateUsername(identifier)
@@ -86,14 +196,15 @@ function validateUsername(identifier)
     var errorText = "Required; letters and numbers only";
     var regex = /^([a-z]|[0-9])+$/i;
     
-    
-    var input = document.getElementById(id).value;
+    var element = document.getElementById(id);
+    var errorElement = document.getElementById(id+"error");
+    var input = element.value;
     if(!regex.test(input))
     {
-            document.getElementById(id).style.backgroundColor = error.errorColor;
-            document.getElementById(id).focus();
-            document.getElementById(id+"error").innerHTML=errorText;
-            document.getElementById(id+"error").style.visibility="visible";
+            element.style.backgroundColor = error.errorColor;
+            element.focus();
+            errorElement.innerHTML=errorText;
+            errorElement.style.visibility="visible";
             error.numErrors++;
     }
     else if(id==="username")
@@ -106,16 +217,16 @@ function validateUsername(identifier)
                 var json = JSON.parse(text);
                 if(json.usernameStatus==="used")
                 {
-                    document.getElementById(id).style.backgroundColor = error.errorColor;
-                    document.getElementById(id).focus();
-                    document.getElementById(id+"error").innerHTML="That username is taken";
-                    document.getElementById(id+"error").style.visibility="visible";
+                    element.style.backgroundColor = error.errorColor;
+                    element.focus();
+                    errorElement.innerHTML="That username is taken";
+                    errorElement.style.visibility="visible";
                     error.numErrors++;
                 }
                 else
                 {
-                    document.getElementById(id).style.backgroundColor = error.okColor;
-                    document.getElementById(id+"error").style.visibility="hidden";
+                    element.style.backgroundColor = error.okColor;
+                    errorElement.style.visibility="hidden";
                 }
             }
         };
@@ -125,74 +236,76 @@ function validateUsername(identifier)
     }
     else
     {
-        document.getElementById(id).style.backgroundColor = error.okColor;
-        document.getElementById(id+"error").style.visibility="hidden";
+        element.style.backgroundColor = error.okColor;
+        errorElement.style.visibility="hidden";
     }
 }
 
 function validatePassword()
 {
-    validateElement("password", "8 character min; 1 uppercase, 1 lowercase, 1 number", /^((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}){0,1}$/, error);
+    validateElement("password", "8 character min; 1 uppercase, 1 lowercase, 1 number", /^((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}){0,1}$/);
 }
 
 function validateConfirmPassword()
 {
-        if(document.getElementById("password").value !== document.getElementById("confirmpassword").value)
+        var element = document.getElementById("confirmpassword");
+        var errorElement =  document.getElementById("confirmpassword"+"error");
+        if(document.getElementById("password").value !== element.value)
         {
-            document.getElementById("confirmpassword").style.backgroundColor = error.errorColor;
-            document.getElementById("confirmpassword").focus();
-            document.getElementById("confirmpassword"+"error").innerHTML="This password does not match";
-            document.getElementById("confirmpassword"+"error").style.visibility="visible";
+            element.style.backgroundColor = error.errorColor;
+            element.focus();
+            errorElement.innerHTML="This password does not match";
+            errorElement.style.visibility="visible";
             error.numErrors++;
         }
         else
         {
-            document.getElementById("confirmpassword").style.backgroundColor = error.okColor;
-            document.getElementById("confirmpassword"+"error").style.visibility="hidden";
+            element.style.backgroundColor = error.okColor;
+            errorElement.style.visibility="hidden";
         }
 }
 
 function validateEmail()
 {
-    validateElement("email", "e-mail: required; e.g. email@cyl.org", /^.+@.+\..+$/, error);
+    validateElement("email", "e-mail: required; e.g. email@cyl.org", /^.+@.+\..+$/);
 }
 
 function validateHighschool()
 {
-    validateElement("highschool", "Required; e.g. Golden High School", /^([a-z]+ {0,1})+$/i, error); 
+    validateElement("highschool", "Required; e.g. Golden High School", /^([a-z]+ {0,1})+$/i); 
 }
 
 function validateStanding()
 {
-    validateElement("standing", "Required; Freshman, Sophomore, Junior, Senior, Alumni", /^((Freshman)|(Sophomore)|(Junior)|(Senior)|(Alumni))$/i, error);
+    validateElement("standing", "Required; Freshman, Sophomore, Junior, Senior, Alumni", /^((Freshman)|(Sophomore)|(Junior)|(Senior)|(Alumni))$/i);
 }
 
 function validateGraddate()
 {
-    validateElement("graddate", "Required; e.g. mm/yy", /^([10-12]{0,1}|(0{0,1}[1-9]))\/[0-9][0-9]$/i, error);
+    validateElement("graddate", "Required; e.g. mm/yy", /^([10-12]{0,1}|(0{0,1}[1-9]))\/[0-9][0-9]$/i);
 }
 
 function validatePreferrednonprofit()
 {
-    validateElement("preferrednonprofit", "Letters and spaces only", /^(([a-z]+ {0,1})+){0,1}$/i, error);
+    validateElement("preferrednonprofit", "Letters and spaces only", /^(([a-z]+ {0,1})+){0,1}$/i);
 }
 
 function validateAlumni()
 {
-    validateElement("alumni", "Volunteer, Intern, Staff, Board Member, Other", /^((Volunteer)|(Intern)|(Staff)|(Board Member)|(Other)){0,1}$/i, error);
+    validateElement("alumni", "Volunteer, Intern, Staff, Board Member, Other", /^((Volunteer)|(Intern)|(Staff)|(Board Member)|(Other)){0,1}$/i);
 }
 
 function validateInternship()
 {
-    validateElement("internship", "Letters and spaces only", /^(([a-z]+ {0,1})+){0,1}$/i, error);
+    validateElement("internship", "Letters and spaces only", /^(([a-z]+ {0,1})+){0,1}$/i);
 }
 
 function validateUniversity()
 {
-    validateElement("university", "Letters and spaces only", /^(([a-z]+ {0,1})+){0,1}$/i, error);
+    validateElement("university", "Letters and spaces only", /^(([a-z]+ {0,1})+){0,1}$/i);
 }
 
 function validateWork()
 {
-    validateElement("work", "Letters and spaces only", /^(([a-z]+ {0,1})+){0,1}$/i, error);
+    validateElement("work", "Letters and spaces only", /^(([a-z]+ {0,1})+){0,1}$/i);
 }

@@ -74,6 +74,9 @@ p {
 #workerror {
     margin-left: 135px;
 }
+#letteruploaderror, #resumeuploaderror {
+    margin-left: 20px;
+}
 .first {
     margin-top: 15px;
 }
@@ -94,8 +97,14 @@ input {
 .col-2-2-top p, .col-2-2-top small, .col-2-2-top input {
     margin-left: 0;
 }
+figure {
+    margin-bottom: 5px;
+}
 .file-picture {
     padding: 0;
+    margin-left: 40px;
+}
+#pictureuploaderror {
     margin-left: 40px;
 }
 .file {

@@ -30,7 +30,9 @@ and open the template in the editor.
                     <figure>
                         <img class="picture" src="../uploads/ProfilePic - <?php echo $student->firstname.$student->lastname ?>.jpg" alt="Profile Picture">
                     </figure>
-                        <input class="file file-picture" type="file" name="picture" accept="image/jpeg"><br>
+                    <input id="pictureupload" class="file file-picture" type="file" name="picture" accept="image/jpeg" onchange="validatePicture()">
+                    <br>
+                    <small class="errorMessage" id="pictureuploaderror"></small>
                 </fieldset>
                 </div><div class="col-2-2-top">
                 <fieldset class="tall">
@@ -168,7 +170,7 @@ and open the template in the editor.
                                                                        <img id=\"fb_shareBross\" class=\"shareButton\" src=\"../img/MtBross.png\" height=\"80px\" width=\"80px\" alt=\"Badge\">";}
                         ?>
                     <br>
-                    <p>LEM Badges:</p><br><p></p>
+                    <p>LEM Badges Placeholder:</p><br><p></p>
                     <img src="/img/exampleLEMbadges.jpg" alt="LEM Badges">
                     <br><br>
                     <p>Preferred Nonprofit Partner:</p><br><input class="input-left" id="preferrednonprofit" type="text" name="preferrednonprofit" value="<?php echo $student->preferrednonprofit; ?>" onkeyup="validatePreferrednonprofit()" size="25"><br>
@@ -195,8 +197,10 @@ and open the template in the editor.
                     <small class="errorMessage" id="universityerror"></small><br>
                     <p>Work Experience:</p><input id="work" type="text" name="work" value="<?php echo $student->work; ?>" onkeyup="validateWork()" size="26"><br>
                     <small class="errorMessage" id="workerror"></small><br>
-                    <p>Letters of Recommendation:</p><br><input class="file input-left" type="file" name="letter" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"><br>
-                    <p>Resume:</p><br><input class="file input-left" type="file" name="resume" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"><br>
+                    <p>Letters of Recommendation:</p><br><input id="letterupload" class="file input-left" type="file" name="letter" onchange="validateLetter()" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                    <br><small class="errorMessage" id="letteruploaderror"></small><br>
+                    <p>Resume:</p><br><input id="resumeupload" class="file input-left" type="file" name="resume" onchange="validateResume()" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" onchange="validateResume()">
+                    <br><small class="errorMessage" id="resumeuploaderror"></small><br>
                 </fieldset>
                 </div>
             </div>
@@ -204,13 +208,12 @@ and open the template in the editor.
                 <input type="submit" value="Save Changes">
             </div>
             <div class="row-border"></div>
-            <!--
             <div class="reporting">
-                <h3>Reporting</h3>
-                <img class="graph" src="img/graph.jpg" alt="Chart" height="100">
+                <h3>Reporting Placeholder</h3>
+                <img class="graph" src="../img/exampleGraph.jpg" alt="Chart" height="100">
                 <br><br>
             </div>
-            -->
+            <div class="row-border"></div>
             </form>
         </main>
         
