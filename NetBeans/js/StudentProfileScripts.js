@@ -15,12 +15,13 @@ function validate(identifier) {
     validateStanding();
     validateHighschool();       
 
-    validateEmail();
+    validateContactPreference('contactPreference3');
+    validateContactPreference('contactPreference2');
+    validateContactPreference('contactPreference1');
     validateConfirmPassword();
     validatePassword();
     validateUsername(identifier);
 
-    validatePhone();
     validateCounty();
     validateZip();
     validateState();
@@ -185,11 +186,6 @@ function validateCounty()
     validateElement("county", "County: required; e.g. Jefferson", /^([a-z]+ {0,1})+$/i);
 }
 
-function validatePhone()
-{
-    validateElement("phone", "Phone Number: required; ex. 303-555-5555", /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/);
-}
-
 function validateUsername(identifier)
 {
     var id = "username";
@@ -265,9 +261,99 @@ function validateConfirmPassword()
         }
 }
 
-function validateEmail()
+function validatePhone(id)
 {
-    validateElement("email", "e-mail: required; e.g. email@cyl.org", /^.+@.+\..+$/);
+    validateElement(id, "Phone: e.g. 303-555-5555", /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/);
+}
+
+function validateText(id)
+{
+    validateElement(id, "Text: e.g. 303-555-5555", /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/);
+}
+
+function validateEmail(id)
+{
+    validateElement(id, "Email: e.g. email@cyl.org", /^.+@.+\..+$/);
+}
+
+function validateContactPreference(id)
+{
+    var currentElement = document.getElementById(id);
+    var currentElement2 = document.getElementById(id+"Info");
+    var selected = currentElement.value;
+    var element1 = document.getElementById("contactPreference1");
+    var element2 = document.getElementById("contactPreference2");
+    var element3 = document.getElementById("contactPreference3");
+    var errorElement = document.getElementById(id+"Infoerror");
+    var errorElement2 = document.getElementById('contactPreferenceerror');
+    currentElement2.style.visibility="visible";
+    errorElement2.style.visibility="hidden";
+    
+    if(document.getElementById('contactPreference1').value!=="Email" && document.getElementById('contactPreference2').value!=="Email" && document.getElementById('contactPreference3').value!=="Email")
+    {
+        if(element3.value==="None")
+        {
+            element3.focus();
+        }
+        else
+        {
+            if(id!=="contactPreference1")
+            {
+                element1.focus();
+            }
+            else
+            {
+                element2.focus();
+            }
+        }
+        errorElement2.innerHTML="Please provide your Email";
+        errorElement2.style.visibility="visible";
+        error.numErrors++;
+    }
+    else if(element1.value!=="Phone" && element2.value!=="Phone" && element3.value!=="Phone")
+    {
+        if(element3.value==="None")
+        {
+            element3.focus();
+        }
+        else
+        {
+            if(id!=="contactPreference1")
+            {
+                element1.focus();
+            }
+            else
+            {
+                element2.focus();
+            }
+        }
+        errorElement2.innerHTML="Please provide your Phone";
+        errorElement2.style.visibility="visible";
+        error.numErrors++;
+    }
+    
+    if(selected==='Phone')
+    {
+        validatePhone(id+"Info");
+    }
+    else if(selected==='Text')
+    {
+        validateText(id+"Info");
+    }
+    else if(selected==='Email')
+    {
+        validateEmail(id+"Info");
+    }
+    else if(selected==='None')
+    {
+        errorElement.style.visibility="hidden";
+        currentElement2.value="";
+        currentElement2.style.visibility="hidden";
+    }
+}
+
+function setFocus(id) {
+    document.getElementById(id).focus();
 }
 
 function validateHighschool()

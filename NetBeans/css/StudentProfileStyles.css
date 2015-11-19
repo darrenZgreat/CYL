@@ -53,26 +53,38 @@ p {
     color: #ff4f4f;
     visibility: hidden;
 }
-#usernameerror, #passworderror, #confirmpassworderror, #standingerror {
-    margin-left: 85px;
+#usernameerror {
+    margin-left: 87px;
+} 
+#passworderror, #confirmpassworderror {
+    margin-left: 83px;
+}
+#contactPreference1Infoerror, #contactPreference2Infoerror {
+    margin-left: 188px;
+}
+#contactPreference3Infoerror {
+    margin-left: 36px;
 }
 #highschoolerror {
-    margin-left: 100px;
+    margin-left: 102px;
+}
+#standingerror {
+    margin-left: 84px;
 }
 #graddateerror {
-    margin-left: 125px;
+    margin-left: 127px;
 }
 #alumnierror {
     margin-left: 110px;
 }
 #internshiperror {
-    margin-left: 90px;
+    margin-left: 88px;
 }
 #universityerror {
-    margin-left: 145px;
+    margin-left: 143px;
 }
 #workerror {
-    margin-left: 135px;
+    margin-left: 133px;
 }
 #letteruploaderror, #resumeuploaderror {
     margin-left: 20px;
@@ -124,7 +136,7 @@ fieldset {
     border: none;
 }
 .row {
-    height: 330px;
+    height: 360px;
 }
 .row-border {
     height: 8px;

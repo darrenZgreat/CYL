@@ -31,15 +31,15 @@ and open the template in the editor.
                         <img class="picture" src="../uploads/ProfilePic - <?php echo $student->firstname.$student->lastname ?>.jpg" alt="Profile Picture">
                     </figure>
                     <input id="pictureupload" class="file file-picture" type="file" name="picture" accept="image/jpeg" onchange="validatePicture()">
-                    <br>
-                    <small class="errorMessage" id="pictureuploaderror"></small>
+                    <br><small class="errorMessage" id="pictureuploaderror"></small><br>
                 </fieldset>
                 </div><div class="col-2-2-top">
                 <fieldset class="tall">
                     <input class="input-left first" type="text" name="firstname" readonly value="<?php echo $student->firstname; ?>">
                     <input class="input-left" type="text" name="lastname" readonly value="<?php echo $student->lastname; ?>">
                     <br><small></small><br>
-                    <p>Member since:</p><input type="text" name="since" readonly value="<?php echo $student->since; ?>" size="10">
+                    <p>Member<br>Since:</p><input type="text" name="since" readonly value="<?php echo $student->since; ?>" size="10">
+                    &nbsp;&nbsp;&nbsp<p>Chapter:</p><input id="chapter" class="input-left first" type="text" name="chapter" readonly value="<?php echo $student->chapter; ?>" size="15">
                     <br><small></small><br>
                     <input class="input-left" id="street" type="text" name="street" value="<?php echo $student->street; ?>" onkeyup="validateStreet()"><br>
                     <small class="errorMessage" id="streeterror"></small><br>
@@ -104,8 +104,8 @@ and open the template in the editor.
                     <small class="errorMessage" id="ziperror"></small><br>
                     <input class="input-left" id="county" type="text" name="county" value="<?php echo $student->county; ?>" onkeyup="validateCounty()">&nbsp;County<br>
                     <small class="errorMessage" id="countyerror"></small><br>
-                    <input class="input-left" id="phone" type="text" name="phone" value="<?php echo $student->phone; ?>" onkeyup="validatePhone()"><br>
-                    <small class="errorMessage" id="phoneerror"></small><br>
+                    <input class="input-left" type="text" name="country" readonly value="<?php echo $student->country; ?>">
+                    <br><small></small><br>
                 </fieldset>
                 </div>
             </div>
@@ -113,18 +113,32 @@ and open the template in the editor.
             <div class="row">
                 <div class="col-1-2">
                 <fieldset>
-                    <input class="input-left first" type="text" name="chapter" readonly value="<?php echo $student->chapter; ?>">&nbsp;Chapter
-                    <br><small></small><br>
-                    <p>Username:</p><input id="username" type="text" name="username" value="<?php echo $student->username; ?>" onkeyup="validateUsername(<?php echo $identifier ?>)"><br>
+                    <p class="first">Username:</p><input id="username" type="text" name="username" value="<?php echo $student->username; ?>" onkeyup="validateUsername(<?php echo $identifier ?>)"><br>
                     <small class="errorMessage" id="usernameerror"></small><br>
                     <p>Change<br>Password:</p><input id="password" type="password" name="password" onkeyup="validateConfirmPassword(); validatePassword(); focus()"><br>
                     <small class="errorMessage" id="passworderror"></small><br>
                     <p>Confirm<br>Password:</p><input id="confirmpassword" type="password" name="confirmpassword" onkeyup="validateConfirmPassword()"><br>
                     <small class="errorMessage" id="confirmpassworderror"></small><br>
-                    <input class="input-left" type="text" name="country" readonly value="<?php echo $student->country; ?>">
-                    <br><small></small><br>
-                    <input class="input-left" id="email" type="email" name="email" value="<?php echo $student->email; ?>" onkeyup="validateEmail()"><br>
-                    <small class="errorMessage" id="emailerror"></small><br>
+                    <p>Contact<br>Preference 1:&nbsp;</p><select id="contactPreference1" name="contactPreference1" onchange="validateContactPreference('contactPreference1')">
+                        <option value="Phone" <?php if($student->contactPreference1==="Phone"){echo "selected";} ?>>Phone</option>
+                        <option value="Text" <?php if($student->contactPreference1==="Text"){echo "selected";} ?>>Text</option>
+                        <option value="Email" <?php if($student->contactPreference1==="Email"){echo "selected";} ?>>Email</option>
+                    </select><input class="input-left" id="contactPreference1Info" type="text" name="contactPreference1Info" value="<?php echo $student->contactPreference1Info; ?>" onkeyup="validateContactPreference('contactPreference1'), setFocus('contactPreference1Info')"><br>
+                    <small class="errorMessage" id="contactPreference1Infoerror"></small><br>
+                    <p>Contact<br>Preference 2:&nbsp;</p><select id="contactPreference2" name="contactPreference2" onchange="validateContactPreference('contactPreference2')">
+                        <option value="Phone" <?php if($student->contactPreference2==="Phone"){echo "selected";} ?>>Phone</option>
+                        <option value="Text" <?php if($student->contactPreference2==="Text"){echo "selected";} ?>>Text</option>
+                        <option value="Email" <?php if($student->contactPreference2==="Email"){echo "selected";} ?>>Email</option>
+                    </select><input class="input-left" id="contactPreference2Info" type="text" name="contactPreference2Info" value="<?php echo $student->contactPreference2Info; ?>" onkeyup="validateContactPreference('contactPreference2'), setFocus('contactPreference2Info')"><br>
+                    <small class="errorMessage" id="contactPreference2Infoerror"></small><br>
+                    <p>Contact<br>Preference 3:&nbsp;</p><select id="contactPreference3" name="contactPreference3" onchange="validateContactPreference('contactPreference3')">
+                        <option value="None">None</option>
+                        <option class="underscore" disabled>&mdash;&mdash;&mdash;</option>
+                        <option value="Phone" <?php if($student->contactPreference3==="Phone"){echo "selected";} ?>>Phone</option>
+                        <option value="Text" <?php if($student->contactPreference3==="Text"){echo "selected";} ?>>Text</option>
+                        <option value="Email" <?php if($student->contactPreference3==="Email"){echo "selected";} ?>>Email</option>
+                    </select><input class="input-left" id="contactPreference3Info" type="text" name="contactPreference3Info" value="<?php echo $student->contactPreference3Info; ?>" style="<?php if($student->contactPreference3==='None'){echo 'visibility: hidden';} ?>" onkeyup="validateContactPreference('contactPreference3'), setFocus('contactPreference3Info')"><br>
+                    <small class="errorMessage" id="contactPreferenceerror">Please provide your Email</small><small class="errorMessage" id="contactPreference3Infoerror"></small><br>
                 </fieldset>
                 </div><div class="col-border">
                 </div><div class="col-2-2">

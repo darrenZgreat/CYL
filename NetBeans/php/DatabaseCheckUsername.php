@@ -9,7 +9,7 @@
     {
         try {
             $connection = getConnection();
-            $sql = "SELECT count(idStudentProfile) AS num FROM StudentProfile WHERE username='$username'";
+            $sql = "SELECT count(idStudentProfile) AS num FROM StudentProfileNew WHERE username='$username'";
             $result = $connection ->query($sql);
             foreach($result as $row)
             {
