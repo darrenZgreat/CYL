@@ -226,7 +226,7 @@ function validateUsername(identifier)
                 }
             }
         };
-        request.open("POST", "DatabaseCheckUsername.php", false);
+        request.open("POST", "StudentProfileDatabaseCheckUsername.php", false);
         request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         request.send("id="+identifier+"&"+"username="+input);
     }

@@ -1,5 +1,5 @@
 <?php
-    include 'Student.php';
+    include 'StudentProfile.php';
     include 'DatabaseConnect.php';
 
     

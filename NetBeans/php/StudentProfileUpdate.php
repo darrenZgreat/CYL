@@ -1,6 +1,6 @@
 <?php
-    header("Location: StudentProfile.php");
-    include 'DatabaseStudentProfile.php';
+    header("Location: StudentProfilePage.php");
+    include 'StudentProfileDatabase.php';
     
     if($_FILES["picture"]["tmp_name"]!=null)
     {

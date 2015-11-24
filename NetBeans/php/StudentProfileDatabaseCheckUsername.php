@@ -1,6 +1,6 @@
 <?php
 
-    include 'DatabaseStudentProfile.php';
+    include 'StudentProfileDatabase.php';
 
     $id = $_POST["id"];
     $username = $_POST["username"];

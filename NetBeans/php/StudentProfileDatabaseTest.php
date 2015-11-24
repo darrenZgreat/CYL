@@ -1,5 +1,5 @@
 <?php
-include 'DatabaseStudentProfile.php';
+include 'StudentProfileDatabase.php';
 getConnection();
 /*
 $newStudent = new Student();
