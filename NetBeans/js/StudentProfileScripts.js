@@ -168,7 +168,7 @@ function validateStreet()
 function validateCity()
 {
     //message is followed by spaces to preserve spacing before the state  message
-    validateElement("city", "City: required; e.g. Golden&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", /^([a-z]+ {0,1})+$/i);
+    validateElement("city", "City: required; e.g. Golden&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", /^([a-z]+ {0,1})+$/i);
 }
 
 function validateState()

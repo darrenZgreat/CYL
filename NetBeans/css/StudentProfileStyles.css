@@ -3,25 +3,20 @@ body {
     margin: 0 auto 0 auto;
 }
 header {
-    width: 100%;
+    height: 105px;
+    width: 1200px;
+    margin: 0 auto 0 auto;
     background-color: #e6dac8;
     color: black;
     text-align: center;
+    position: fixed;
+    z-index: 1;
 }
-header h3 {
-    color: white;
+.header-buffer {
+    height: 105px;
 }
 main {
-    width: 70%;
-    height: 565px;
-    overflow: auto;
-    float: left;
-}
-.left-buffer {
-    width: 0.75%;
-    height: 565px;
-    background-color: #eeeeee;
-    float: left;
+    width: 100%;
 }
 aside {
     width: 29.25%;
@@ -37,7 +32,6 @@ footer {
     background-color: #363736;
     color: white;
     text-align: center;
-    clear: both;
 }
 .picture {
     height: 300px;
@@ -54,25 +48,25 @@ p {
     visibility: hidden;
 }
 #usernameerror {
-    margin-left: 87px;
+    margin-left: 70px;
 } 
 #passworderror, #confirmpassworderror {
-    margin-left: 83px;
+    margin-left: 67px;
 }
 #contactPreference1Infoerror, #contactPreference2Infoerror {
-    margin-left: 188px;
+    margin-left: 166px;
 }
 #contactPreference3Infoerror {
-    margin-left: 36px;
+    margin-left: 29px;
 }
 #highschoolerror {
-    margin-left: 102px;
+    margin-left: 131px;
 }
 #standingerror {
-    margin-left: 84px;
+    margin-left: 131px;
 }
 #graddateerror {
-    margin-left: 127px;
+    margin-left: 132px;
 }
 #alumnierror {
     margin-left: 110px;
@@ -94,7 +88,7 @@ p {
 }
 input {
     padding: 4px;
-    font-size: 13px;
+    font-size: 15px;
     border-left: none;
     border-top: none;
     border-right-style: dotted;
@@ -106,7 +100,7 @@ input {
 .input-left {
     margin-left: 15px;
 }
-.col-2-2-top p, .col-2-2-top small, .col-2-2-top input {
+.col-2-3 p, .col-2-3 small, .col-2-3 input, .col-3-3 p, .col-3-3 small, .col-3-3 input {
     margin-left: 0;
 }
 figure {
@@ -146,32 +140,36 @@ fieldset {
 .tall {
     height: 370px;
 }
-.col-1-2, .col-2-2, .col-1-2-top, .col-2-2-top, .col-border, .col-buffer {
+.col-1-2, .col-2-2, .col-1-3, .col-2-3, .col-3-3, .col-border, .col-buffer {
     display: inline-table;
     vertical-align: top;
     margin: 0;
     padding: 0;
 }
 .col-1-2, .col-2-2 {
-    width: 49.5%;
+    width: 47.5%;
+    margin-left: 2%
 }
 .col-border {
     height: 100%;
-    width: 1%;
+    width: 0.75%;
     background-color: #eeeeee;
 }
-.col-1-2-top {
-    width: 49%;
+.col-1-3 {
+    width: 32%;
 }
-.col-2-2-top {
-    width: 51%;
+.col-2-3 {
+    width: 36%;
+}
+.col-3-3 {
+    width: 32%;
 }
 .submit {
     width: 100%;
 }
 .submit input {
     width: 180px;
-    margin: 0 326px;
+    margin: 0 508px;
     border-width: 4px;
     border-style: outset;
     border-color: #363736;
