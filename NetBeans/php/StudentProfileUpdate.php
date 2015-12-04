@@ -9,7 +9,7 @@
         $image_height = $image_info[1];
         if($image_height==$image_width)
         {
-            move_uploaded_file($_FILES["picture"]["tmp_name"], "../uploads/ProfilePic - ".$_POST["firstname"].$_POST["lastname"].".jpg");
+            move_uploaded_file($_FILES["picture"]["tmp_name"], "../uploads/".$_POST["firstname"].$_POST["lastname"]." ProfilePic.jpg");
         }
         else
         {

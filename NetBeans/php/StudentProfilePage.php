@@ -30,7 +30,7 @@ and open the template in the editor.
                 <div class="col-1-3">
                     <fieldset class="tall">
                     <figure>
-                        <img class="picture" src="../uploads/ProfilePic - <?php echo $student->firstname.$student->lastname ?>.jpg" alt="Profile Picture">
+                        <img class="picture" src="../uploads/<?php echo $student->firstname.$student->lastname ?> ProfilePic.jpg" alt="Profile Picture">
                     </figure>
                     <input id="pictureupload" class="file file-picture" type="file" name="picture" accept="image/jpeg" onchange="validatePicture()">
                     <br><small class="errorMessage" id="pictureuploaderror"></small><br>
