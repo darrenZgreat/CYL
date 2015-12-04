@@ -8,3 +8,26 @@ and open the template in the editor.
     Author     : rsjodin
 */
 
+header
+{
+    // One hundred percent of its parent
+    width: 100%;
+    background-color: #60474b;
+    color: white;
+    text-align: center;
+    
+}
+
+a 
+{
+    color: white;
+}
+
+footer
+{
+    width: 100%;
+    background-color: #363736;
+    text-align: center;
+    clear: both;
+    color: white;
+}

@@ -7,12 +7,10 @@ function validate(identifier) {
     validateWork();
     validateUniversity();
     validateInternship();
-    validateAlumni();
 
     validatePreferrednonprofit();
 
     validateGraddate();
-    validateStanding();
     validateHighschool();       
 
     validateContactPreference('contactPreference3');
@@ -24,7 +22,6 @@ function validate(identifier) {
 
     validateCounty();
     validateZip();
-    validateState();
     validateCity();
     validateStreet();
     
@@ -171,11 +168,6 @@ function validateCity()
     validateElement("city", "City: required; e.g. Golden&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", /^([a-z]+ {0,1})+$/i);
 }
 
-function validateState()
-{
-    validateElement("state", "State: required; e.g. CO", /^((AL)|(AK)|(AZ)|(AR)|(CA)|(CO)|(CT)|(DE)|(DC)|(FL)|(GA)|(HI)|(ID)|(IL)|(IN)|(IA)|(KS)|(KY)|(LA)|(ME)|(MD)|(MA)|(MI)|(MN)|(MS)|(MO)|(MT)|(NE)|(NV)|(NH)|(NJ)|(NM)|(NY)|(NC)|(ND)|(OH)|(OK)|(OR)|(PA)|(RI)|(SC)|(SD)|(TN)|(TX)|(UT)|(VT)|(VA)|(WA)|(WV)|(WI)|(WY))$/i);
-}
-
 function validateZip()
 {
     validateElement("zip", "Zip: required; e.g. 80400", /^[0-9]{5}$/);
@@ -289,9 +281,9 @@ function validateContactPreference(id)
     currentElement2.style.visibility="visible";
     errorElement2.style.visibility="hidden";
     
-    if(document.getElementById('contactPreference1').value!=="Email" && document.getElementById('contactPreference2').value!=="Email" && document.getElementById('contactPreference3').value!=="Email")
+    if(document.getElementById('contactPreference1').value!=="email" && document.getElementById('contactPreference2').value!=="email" && document.getElementById('contactPreference3').value!=="email")
     {
-        if(element3.value==="None")
+        if(element3.value==="none")
         {
             element3.focus();
         }
@@ -310,9 +302,9 @@ function validateContactPreference(id)
         errorElement2.style.visibility="visible";
         error.numErrors++;
     }
-    else if(element1.value!=="Phone" && element2.value!=="Phone" && element3.value!=="Phone")
+    else if(element1.value!=="phone" && element2.value!=="phone" && element3.value!=="phone")
     {
-        if(element3.value==="None")
+        if(element3.value==="none")
         {
             element3.focus();
         }
@@ -332,19 +324,19 @@ function validateContactPreference(id)
         error.numErrors++;
     }
     
-    if(selected==='Phone')
+    if(selected==='phone')
     {
         validatePhone(id+"Info");
     }
-    else if(selected==='Text')
+    else if(selected==='text')
     {
         validateText(id+"Info");
     }
-    else if(selected==='Email')
+    else if(selected==='email')
     {
         validateEmail(id+"Info");
     }
-    else if(selected==='None')
+    else if(selected==='none')
     {
         errorElement.style.visibility="hidden";
         currentElement2.value="";
@@ -361,11 +353,6 @@ function validateHighschool()
     validateElement("highschool", "Required; e.g. Golden High School", /^([a-z]+ {0,1})+$/i); 
 }
 
-function validateStanding()
-{
-    validateElement("standing", "Required; Freshman, Sophomore, Junior, Senior, Alumni", /^((Freshman)|(Sophomore)|(Junior)|(Senior)|(Alumni))$/i);
-}
-
 function validateGraddate()
 {
     validateElement("graddate", "Required; e.g. mm/yy", /^([10-12]{0,1}|(0{0,1}[1-9]))\/[0-9][0-9]$/i);
@@ -374,11 +361,6 @@ function validateGraddate()
 function validatePreferrednonprofit()
 {
     validateElement("preferrednonprofit", "Letters and spaces only", /^(([a-z]+ {0,1})+){0,1}$/i);
-}
-
-function validateAlumni()
-{
-    validateElement("alumni", "Volunteer, Intern, Staff, Board Member, Other", /^((Volunteer)|(Intern)|(Staff)|(Board Member)|(Other)){0,1}$/i);
 }
 
 function validateInternship()

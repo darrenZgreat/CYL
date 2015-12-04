@@ -2,7 +2,7 @@
     function getConnection() 
     {
         $servername = "127.0.0.1";
-        $dbname = "acme";
+        $dbname = "CYL";
         $username = "root";
         $password = "";
         try {

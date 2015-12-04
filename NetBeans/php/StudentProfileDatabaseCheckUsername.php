@@ -9,11 +9,11 @@
     {
         try {
             $connection = getConnection();
-            $sql = "SELECT count(idStudentProfile) AS num FROM StudentProfileNew WHERE username='$username'";
+            $sql = "SELECT count(login_id) AS count FROM login WHERE username='$username'";
             $result = $connection ->query($sql);
             foreach($result as $row)
             {
-                if($row["num"]==0)
+                if($row["count"]==0)
                 {
                     echo ('{ "usernameStatus" : "'.'new'.'"}');
                     return false;

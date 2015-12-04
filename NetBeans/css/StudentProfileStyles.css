@@ -62,14 +62,8 @@ p {
 #highschoolerror {
     margin-left: 131px;
 }
-#standingerror {
-    margin-left: 131px;
-}
 #graddateerror {
     margin-left: 132px;
-}
-#alumnierror {
-    margin-left: 110px;
 }
 #internshiperror {
     margin-left: 88px;
@@ -91,10 +85,10 @@ input {
     font-size: 15px;
     border-left: none;
     border-top: none;
-    border-right-style: dotted;
+    border-right-style: solid;
     border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-right-width: .5px;
+    border-bottom-width: 2px;
+    border-right-width: 1px;
     border-color: #ef8724;
 }
 .input-left {

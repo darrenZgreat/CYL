@@ -1,54 +1,143 @@
 <?php
-    include 'StudentProfile.php';
+    include 'StudentProfileStudent.php';
+    include 'StudentProfileState.php';
     include 'DatabaseConnect.php';
 
+    function getStates()
+    {
+        $states = array();
+        try {
+            $connection = getConnection();
+            $sql = "SELECT state_name, abrev FROM state";
+            $result = $connection->query($sql);
+            $i = 0;
+            foreach($result as $row)
+            {
+                $s = new State();
+                $s->name = $row["state_name"];
+                $s->abrev = $row["abrev"];
+                $states[$i++] = $s;
+            }
+        } catch (Exception $ex) {
+            echo "EXCEPTION: Update failed : ".$e->getMessage();
+        }
+        
+        return $states;
+    }
     
     function getStudent($id)
     {
         try {
-            $connection = getConnection();
-            $sql = "SELECT firstName, lastName, date_format(memberSince, '%c/%d/%Y') AS memberSince, 
-		addressStreet, addressCity, addressState, addressZip, addressCounty, country, 
-                chapter, username, password,
-                contactPreference1, contactPreference1Info, contactPreference2, contactPreference2Info, 
-                contactPreference3, contactPreference3Info, 
-                date_format(birthdate, '%c/%d/%Y') AS birthdate, highSchool, highSchoolStanding, 
-                date_format(highSchoolGraduationDate, '%c/%y') AS highSchoolGraduationDate, 
-                activities, hoursCompleted, summitLevel, preferredNonprofit, alumni, internship, 
-                university, work from StudentProfileNew WHERE idStudentProfile=$id";
-            $result = $connection->query($sql);
             $student = new Student();
-            foreach($result as $row) {
+            $connection = getConnection();
+            
+            $sql = "SELECT firstName, lastName, date_format(date_created, '%c/%d/%Y') as date_created, date_format(birthDate, '%c/%d/%Y') AS birthDate, highSchool, highSchoolYear, date_format(gradDate, '%c/%y') AS gradDate, activities, preferredNonProfit, alumni, internship, university_college, work_experience, county FROM user WHERE user_id=$id";
+            $result = $connection->query($sql);
+            foreach($result as $row)
+            {
                 $student->firstname = $row["firstName"];
                 $student->lastname = $row["lastName"];
-                $student->since = $row["memberSince"];
-                $student->chapter = $row["chapter"];
-                $student->street = $row["addressStreet"];
-                $student->city = $row["addressCity"];
-                $student->state = $row["addressState"];
-                $student->zip = $row["addressZip"];
-                $student->county = $row["addressCounty"];
-                $student->country = $row["country"];
-                $student->username = $row["username"];
-                //$student->password = $row["password"];
-                $student->contactPreference1 = $row["contactPreference1"];
-                $student->contactPreference1Info = $row["contactPreference1Info"];
-                $student->contactPreference2 = $row["contactPreference2"];
-                $student->contactPreference2Info = $row["contactPreference2Info"];
-                $student->contactPreference3 = $row["contactPreference3"];
-                $student->contactPreference3Info = $row["contactPreference3Info"];
-                $student->birthdate = $row["birthdate"];
+                $student->since = $row["date_created"];
+                $student->birthdate = $row["birthDate"];
                 $student->highschool = $row["highSchool"];
-                $student->standing = $row["highSchoolStanding"];
-                $student->graddate = $row["highSchoolGraduationDate"];
+                $student->standing = $row["highSchoolYear"];
+                $student->graddate = $row["gradDate"];
                 $student->activities = $row["activities"];
-                $student->hourscompleted = $row["hoursCompleted"];
-                $student->summitlevel = $row["summitLevel"];
-                $student->preferrednonprofit = $row["preferredNonprofit"];
+                $student->preferrednonprofit = $row["preferredNonProfit"];
                 $student->alumni = $row["alumni"];
                 $student->internship = $row["internship"];
-                $student->university = $row["university"];
-                $student->work = $row["work"];
+                $student->university = $row["university_college"];
+                $student->work = $row["work_experience"];
+                $student->county = $row["county"];
+            }
+            
+            $sql = "SELECT chapter_name FROM chapter WHERE chapter_id=(SELECT chapter_id FROM user WHERE user_id=$id)";
+            $result = $connection->query($sql);
+            foreach($result as $row)
+            {
+                $student->chapter=$row["chapter_name"];
+            }
+            
+            $sql = "SELECT street, city, state, country, zip FROM address WHERE user_id=$id";
+            $result = $connection->query($sql);
+            foreach($result as $row)
+            {
+                $student->street = $row["street"];
+                $student->city = $row["city"];
+                $student->state = $row["state"];
+                $student->country = $row["country"];
+                $student->zip = $row["zip"];
+            }
+            
+            $sql = "SELECT username FROM login WHERE user_id=$id";
+            $result = $connection->query($sql);
+            foreach($result as $row)
+            {
+                $student->username = $row["username"];
+            }
+            
+            $sql = "SELECT summit_name FROM summit WHERE summit_id=(SELECT summit_id FROM user_summit WHERE user_id=$id order by stop_date is null desc, stop_date desc limit 1);";
+            $result = $connection->query($sql);
+            foreach($result as $row)
+            {
+                $student->summitlevel = $row["summit_name"];
+            }
+            
+            $sql = "SELECT SUM(hours_worked) as hours FROM user_event WHERE user_id=$id";
+            $result = $connection->query($sql);
+            foreach($result as $row)
+            {
+                $student->hourscompleted = $row["hours"];
+            }
+            
+            $sql = "SELECT contact_type_name FROM contact_type WHERE contact_type_id=(SELECT contact_type_id FROM contact WHERE user_id=$id AND contact_pref=1);";
+            $result = $connection->query($sql);
+            foreach($result as $row)
+            {
+                $student->contactPreference1 = $row["contact_type_name"];
+            }
+            $sql = "SELECT contact_point FROM contact WHERE user_id=$id AND contact_pref=1";
+            $result = $connection->query($sql);
+            foreach($result as $row)
+            {
+                $student->contactPreference1Info = $row["contact_point"];
+            }
+            $sql = "SELECT contact_type_name FROM contact_type WHERE contact_type_id=(SELECT contact_type_id FROM contact WHERE user_id=$id AND contact_pref=2);";
+            $result = $connection->query($sql);
+            foreach($result as $row)
+            {
+                $student->contactPreference2 = $row["contact_type_name"];
+            }
+            $sql = "SELECT contact_point FROM contact WHERE user_id=$id AND contact_pref=2";
+            $result = $connection->query($sql);
+            foreach($result as $row)
+            {
+                $student->contactPreference2Info = $row["contact_point"];
+            }
+            $sql = "SELECT count(contact_id) as count FROM (SELECT contact_id FROM contact WHERE user_id=$id AND contact_pref=3) as temp";
+            $result = $connection->query($sql);
+            foreach($result as $row)
+            {
+                if($row["count"]==0)
+                {
+                    $student->contactPreference3="none";
+                    $student->contactPreference3Info="";
+                }
+                else
+                {
+                    $sql = "SELECT contact_type_name FROM contact_type WHERE contact_type_id=(SELECT contact_type_id FROM contact WHERE user_id=$id AND contact_pref=3);";
+                    $result = $connection->query($sql);
+                    foreach($result as $row)
+                    {
+                        $student->contactPreference3 = $row["contact_type_name"];
+                    }
+                    $sql = "SELECT contact_point FROM contact WHERE user_id=$id AND contact_pref=3";
+                    $result = $connection->query($sql);
+                    foreach($result as $row)
+                    {
+                        $student->contactPreference3Info = $row["contact_point"];
+                    }
+                }
             }
             
             $connection=null;
@@ -62,40 +151,55 @@
     {
         try {
             $connection = getConnection();
-            if($student->password === "")
+            
+            if($student->password != "")
             {
-                $sql = "UPDATE StudentProfileNew SET addressStreet='$student->street', "
-                    . "addressCity='$student->city', addressState='$student->state', "
-                    . "addressZip='$student->zip', addressCounty='$student->county', "
-                    . "contactPreference1='$student->contactPreference1', contactPreference1Info='$student->contactPreference1Info', "
-                    . "contactPreference2='$student->contactPreference2', contactPreference2Info='$student->contactPreference2Info', "
-                    . "contactPreference3='$student->contactPreference3', contactPreference3Info='$student->contactPreference3Info', "
-                    . "highSchool='$student->highschool', highSchoolStanding='$student->standing', "
-                    . "highSchoolGraduationDate=str_to_date('$student->graddate', '%c/%y'), "
-                    . "activities='$student->activities', "
-                    . "preferredNonprofit='$student->preferrednonprofit', alumni='$student->alumni', "
-                    . "internship='$student->internship', university='$student->university', "
-                    . "work='$student->work' "
-                    . "WHERE idStudentProfile=$id";
+                $sql = "UPDATE login SET passwrd='$student->password' WHERE user_id=$id";
+                $connection->exec($sql);
             }
-            else
-            {
-                $sql = "UPDATE StudentProfileNew SET addressStreet='$student->street', "
-                    . "addressCity='$student->city', addressState='$student->state', "
-                    . "addressZip='$student->zip', addressCounty='$student->county', "
-                    . "password='$student->password', "
-                    . "contactPreference1='$student->contactPreference1', contactPreference1Info='$student->contactPreference1Info', "
-                    . "contactPreference2='$student->contactPreference2', contactPreference2Info='$student->contactPreference2Info', "
-                    . "contactPreference3='$student->contactPreference3', contactPreference3Info='$student->contactPreference3Info', "
-                    . "highSchool='$student->highschool', highSchoolStanding='$student->standing', "
-                    . "highSchoolGraduationDate=str_to_date('$student->graddate', '%c/%y'), "
-                    . "activities='$student->activities', "
-                    . "preferredNonprofit='$student->preferrednonprofit', alumni='$student->alumni', "
-                    . "internship='$student->internship', university='$student->university', "
-                    . "work='$student->work' "
-                    . "WHERE idStudentProfile=$id";                
-            }
+            
+            $sql = "UPDATE address SET street='$student->street', city='$student->city', state='$student->state', country='$student->country', zip='$student->zip' WHERE user_id=$id";
             $connection->exec($sql);
+            
+            $sql = "UPDATE user SET highSchool='$student->highschool', highSchoolYear='$student->standing', gradDate=str_to_date('$student->graddate', '%c/%y'), activities='$student->activities', preferredNonProfit='$student->preferrednonprofit', alumni='$student->alumni', internship='$student->internship', university_college='$student->university', work_experience='$student->work', county='$student->county' WHERE user_id=$id";
+            $connection->exec($sql);
+            
+            $sql = "UPDATE contact SET contact_type_id=(SELECT contact_type_id FROM contact_type WHERE contact_type_name='$student->contactPreference1') WHERE user_id=$id AND contact_pref=1";
+            $connection->exec($sql);
+            $sql = "UPDATE contact SET contact_point='$student->contactPreference1Info' WHERE user_id=$id AND contact_pref=1";
+            $connection->exec($sql);
+            $sql = "UPDATE contact SET contact_type_id=(SELECT contact_type_id FROM contact_type WHERE contact_type_name='$student->contactPreference2') WHERE user_id=$id AND contact_pref=2";
+            $connection->exec($sql);
+            $sql = "UPDATE contact SET contact_point='$student->contactPreference2Info' WHERE user_id=$id AND contact_pref=2";
+            $connection->exec($sql);
+            $sql = "SELECT count(contact_id) as count FROM (SELECT contact_id FROM contact WHERE user_id=$id AND contact_pref=3) as temp";
+            $result = $connection->query($sql);
+            foreach($result as $row)
+            {
+                if($row["count"]==0)
+                {
+                    if($student->contactPreference3!="none")
+                    {
+                        $sql = "INSERT INTO contact VALUES (NULL, '$student->contactPreference3Info', (SELECT contact_type_id FROM contact_type WHERE contact_type_name='$student->contactPreference3'), 3, $id, NULL)";
+                        $connection->exec($sql);
+                    }
+                }
+                else 
+                {
+                    if($student->contactPreference3=="none")
+                    {
+                        $sql = "DELETE FROM contact WHERE user_id=$id AND contact_pref=3";
+                        $connection->exec($sql);
+                    }
+                    else
+                    {
+                        $sql = "UPDATE contact SET contact_type_id=(SELECT contact_type_id FROM contact_type WHERE contact_type_name='$student->contactPreference3') WHERE user_id=$id AND contact_pref=3";
+                        $connection->exec($sql);
+                        $sql = "UPDATE contact SET contact_point='$student->contactPreference3Info' WHERE user_id=$id AND contact_pref=3";
+                        $connection->exec($sql);  
+                    }
+                }
+            }
             $connection=null;
         } catch (Exception $e) {
             echo "EXCEPTION: Update failed : ".$e->getMessage();
@@ -109,11 +213,11 @@
         {
             try {
                 $connection = getConnection();
-                $sql = "SELECT count(idStudentProfile) AS num FROM StudentProfileNew WHERE username='$student->username'";
+                $sql = "SELECT count(login_id) AS count FROM login WHERE username='$student->username'";
                 $result = $connection ->query($sql);
                 foreach($result as $row)
                 {
-                    if($row["num"]==0)
+                    if($row["count"]==0)
                     {
                         echo "ok";
                         return false;
@@ -141,74 +245,11 @@
     {
         try {
             $connection = getConnection();
-            $sql = "UPDATE StudentProfileNew SET username='$student->username' WHERE idStudentProfile=$id";
+            $sql = "UPDATE login SET username='$student->username' WHERE user_id=$id";
             $connection->exec($sql);
             $connection=null;
         } catch (Exception $e) {
             echo "EXCEPTION: Update failed : ".$e->getMessage();
-        }
-    }
-    
-    function updateStudentAll($id, $student)
-    {
-        try {
-            $connection = getConnection();
-            $sql = "UPDATE StudentProfileNew SET firstName='$student->firstname', lastName='$student->lastname', "
-                . "memberSince=str_to_date('$student->since', '%c/%e/%Y'), chapter='$student->chapter', addressStreet='$student->street', "
-                . "addressCity='$student->city', addressState='$student->state', "
-                . "addressZip='$student->zip', addressCounty='$student->county', "
-                . "country='$student->country', "
-                . "username='$student->username', password='$student->password', "
-                . "contactPreference1='$student->contactPreference1', contactPreference1Info='$student->contactPreference1Info', "
-                . "contactPreference2='$student->contactPreference2', contactPreference2Info='$student->contactPreference2Info', "
-                . "contactPreference3='$student->contactPreference3', contactPreference3Info='$student->contactPreference3Info', "
-                . "birthdate=str_to_date('$student->birthdate', '%c/%e/%Y'), highSchool='$student->highschool', highSchoolStanding='$student->standing', "
-                . "highSchoolGraduationDate=str_to_date('$student->graddate', '%c/%y'), "
-                . "activities='$student->activities', hoursCompleted='$student->hourscompleted', summitLevel='$student->summitlevel', "
-                . "preferredNonprofit='$student->preferrednonprofit', alumni='$student->alumni', "
-                . "internship='$student->internship', university='$student->university', work='$student->work' "
-                . "WHERE idStudentProfile=$id";                
-            $connection->exec($sql);
-            $connection=null;
-        } catch (Exception $e) {
-            echo "EXCEPTION: Update failed : ".$e->getMessage();
-        }
-    }
-    
-    function addStudent($student)
-    {
-        try {
-            $connection = getConnection();
-            $sql = "INSERT INTO StudentProfileNew (firstName, lastName, memberSince, chapter, addressStreet, addressCity, addressState, addressZip, "
-                 . "addressCounty, country, username, password, contactPreference1, contactPreference1Info, "
-                 . "contactPreference2, contactPreference2Info, contactPreference3, contactPreference3Info, "
-                 . "birthdate, highSchool, highSchoolStanding, "
-                 . "highSchoolGraduationDate, activities, hoursCompleted, summitLevel, preferredNonprofit, alumni, internship, "
-                 . "university, work) VALUES ('$student->firstname', '$student->lastname', str_to_date('$student->since', '%c/%e/%Y'), '$student->chapter', "
-                 . "'$student->street', '$student->city', '$student->state', '$student->zip', '$student->county', '$student->country', "
-                 . "'$student->username', '$student->password', "
-                 . "'$student->contactPreference1', '$student->contactPreference1Info', '$student->contactPreference2', "
-                 . "'$student->contactPreference2Info', '$student->contactPreference3', '$student->contactPreference3Info', "
-                 . "str_to_date('$student->birthdate', '%c/%e/%Y'), '$student->highschool', '$student->standing', "
-                 . "str_to_date('$student->graddate', '%c/%y'), '$student->activities', '$student->hourscompleted', '$student->summitlevel', "
-                 . "'$student->preferrednonprofit', '$student->alumni', '$student->internship', '$student->university', '$student->work')";
-            $connection->exec($sql);
-            //$student->id = $connection ->lastInsertId();
-            $connection=null;
-        } catch (Exception $e) {
-            echo "EXCEPTION: Insert failed : ".$e->getMessage();
-        }
-    }
-    
-    function deleteStudent($id)
-    {
-        try {
-            $connection = getConnection();
-            $sql = "DELETE FROM StudentProfileNew WHERE idStudentProfile=$id";
-            $connection->exec($sql);
-            $connection=null;
-        } catch (Exception $e) {
-            echo "EXCEPTION: Delete failed : ".$e->getMessage();
         }
     }
 ?>
