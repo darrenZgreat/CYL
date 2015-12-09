@@ -1,0 +1,190 @@
+ul {
+    list-style: none;
+    margin-top: 0;
+    padding-left: 15px;
+}
+table {
+    border-spacing: 10px;
+}
+th {
+    font-weight: 400;
+    text-align: left;
+}
+td, tr {
+    padding-right: 50px;
+}
+a {
+    text-decoration: none;
+    color: white;
+}
+.navLinkTop:hover {
+    text-decoration: overline;
+}
+.navLinkBottom:hover {
+    text-decoration: underline;
+}
+.logo:hover {
+    border: 4px inset #357f9a;
+}
+b {
+    font-weight: 300;
+}
+body {
+    margin: 0;
+    background-color: rgb(69, 69, 69);
+    font-family: Lato, sans-serif;
+    font-weight: 300;
+}
+h1, h2, h3 {
+    font-weight: 300;
+    margin: 0;
+}
+.buffer {
+    height: 55px;
+}
+header {
+    width: 100%;
+    min-width: 1200px;
+    height: 55px;
+    position: fixed;
+    z-index: 1;
+    background-color: rgb(69, 69, 69);
+    background-color: hsla(0, 0%, 27%, .9);
+    box-shadow: 0 0 8px 0 rgb(69, 69, 69);
+}
+header::after {
+    clear: both;
+}
+header, footer {
+    font-weight: 400;
+}
+footer {
+    height: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: 400;
+}
+.navBar {
+    margin-right: auto;
+    margin-left: auto;
+    width: 1000px;
+}
+            .navBarLeft {
+                float: left;
+            }
+                        .logo {
+                            border: 4px outset #357f9a;
+                            letter-spacing: 5px;
+                            font-size: 40px;
+                            font-weight: 400;
+                            text-align: center;
+                            margin-top: 5px;
+                            padding: 3px 15px;
+                            background-color: rgb(79, 79, 79);
+                            background-color: hsla(0, 0%, 30%, 1);
+                            box-shadow: 0 2px 4px rgb(79, 79, 79);
+                            border-radius: 35px;
+                        }
+                        .copyright {
+                            color: #ffb359;
+                        }
+            .navBarRight {
+                text-align: right;
+                font-weight: 400;
+                font-size: 12px;
+            }
+                        header nav {
+                            text-transform: uppercase;
+                            padding-top: 10px;
+                        }
+                        .pageTitle {
+                            text-transform: none;
+                            padding-top: 5px;
+                            color: #ffb359;
+                        }
+body {
+    min-width: 1200px;
+}
+main {
+    background-image: url("../img/BioDarrenSchlagerBackground.jpg");
+    background-size: cover;
+}
+            .basic {
+                position: relative;
+                background: linear-gradient(#ffb359, #b6956c 5%);
+                width: 30%;
+                border-bottom-left-radius: 150px;
+                border-bottom-right-radius: 150px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+                        .headshot {
+                            position: absolute;
+                            left: 50%;
+                            top: 20px;
+                            margin-left: -85px;
+                            border-radius: 85px;
+                            width: 170px;
+                            height: 170px;
+                        }
+                        .nameGroup {
+                            position: relative;
+                            padding-top: 146px;
+                        }
+                                    .name, .location {
+                                        text-align: center;
+                                    }
+                                    .name {
+                                        width: 280px;
+                                        margin-left: auto;
+                                        margin-right: auto;
+                                        border-radius: 20px;
+                                        color: rgb(247, 247, 247);
+                                        background-color: rgb(189, 189, 189);
+                                        background-color: hsla(0, 0%, 10%, 0.36);
+                                        font-size: 36px;
+                                    }
+                                    .location {
+                                        padding-top: 10px;
+                                        padding-bottom: 20px;
+                                        font-size: 10pt;
+                                        font-weight: 400;
+                                        color: rgb(69, 69, 69);
+                                        text-transform: uppercase;
+                                    }
+            .role{
+                margin: 0;
+                padding: 0;
+                text-align: center;
+                color: white;
+                font-size: 18pt;
+                font-weight: 100;
+                background: #4cc277;
+                background: linear-gradient(to right, #357f9a, #4cc277 65%);
+            }
+                        .role p {
+                            margin-top: 20px;
+                            margin-bottom: 20px;
+                            padding: 10px;
+                        }
+            .details {
+                padding: 50px 200px;
+                background-color: rgb(247, 247, 247);
+                color: rgb(69, 69, 69);
+            }
+                        .details h2 {
+                            text-decoration: overline;
+                        }
+                        .hobbies, .education {
+                            display: inline-table;
+                        }
+                        .hobbies {
+                            width: 35%;
+                            line-height: 30px;
+                        }
+                        .education {
+                            width: 65%;
+                        }
+                        .hobbies h2, .education h2 {
+                            color: #ffb359;
+                        }
