@@ -2,29 +2,6 @@
     header("Location: StudentProfilePage.php");
     include 'StudentProfileDatabase.php';
     
-    if($_FILES["picture"]["tmp_name"]!=null)
-    {
-        $image_info = getimagesize($_FILES["picture"]["tmp_name"]);
-        $image_width = $image_info[0];
-        $image_height = $image_info[1];
-        if($image_height==$image_width)
-        {
-            move_uploaded_file($_FILES["picture"]["tmp_name"], "../uploads/".$_POST["firstname"].$_POST["lastname"]." ProfilePic.jpg");
-        }
-        else
-        {
-            echo "Picure height and width must be equal. Try Again.<br>";
-        }
-    }
-    if($_FILES["letter"]["tmp_name"]!=null)
-    {
-        move_uploaded_file($_FILES["letter"]["tmp_name"], "../uploads/".$_POST["firstname"].$_POST["lastname"]." Letter - ".$_FILES["letter"]["name"]);
-    }
-    if($_FILES["resume"]["tmp_name"]!=null)
-    {
-        move_uploaded_file($_FILES["resume"]["tmp_name"], "../uploads/".$_POST["firstname"].$_POST["lastname"]." Resume - ".$_FILES["resume"]["name"]);
-    }
-    
     $student = new Student();
     $student->firstname=$_POST["firstname"];
     $student->lastname=$_POST["lastname"];
@@ -57,6 +34,32 @@
     $student->internship=$_POST["internship"];
     $student->university=$_POST["university"];
     $student->work=$_POST["work"];
+    
+    if($_FILES["picture"]["tmp_name"]!=null)
+    {
+        $image_info = getimagesize($_FILES["picture"]["tmp_name"]);
+        $image_width = $image_info[0];
+        $image_height = $image_info[1];
+        if($image_height==$image_width)
+        {
+            $student->fileNameProfilePic=$_POST["firstname"].$_POST["lastname"]." ProfilePic.jpg";
+            move_uploaded_file($_FILES["picture"]["tmp_name"], "../uploads/".$student->fileNameProfilePic);
+        }
+        else
+        {
+            echo "Picure height and width must be equal. Try Again.<br>";
+        }
+    }
+    if($_FILES["letter"]["tmp_name"]!=null)
+    {
+        $student->fileNameLetter=$_POST["firstname"].$_POST["lastname"]." Letter - ".$_FILES["letter"]["name"];
+        move_uploaded_file($_FILES["letter"]["tmp_name"], "../uploads/".$student->fileNameLetter);
+    }
+    if($_FILES["resume"]["tmp_name"]!=null)
+    {
+        $student->fileNameResume=$_POST["firstname"].$_POST["lastname"]." Resume - ".$_FILES["resume"]["name"];
+        move_uploaded_file($_FILES["resume"]["tmp_name"], "../uploads/".$student->fileNameResume);
+    }
     
     if($student->validate())
     {

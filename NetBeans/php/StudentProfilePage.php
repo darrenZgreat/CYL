@@ -46,7 +46,7 @@ and open the template in the editor.
                     <input class="input-left" id="street" type="text" name="street" value="<?php echo $student->street; ?>" onkeyup="validateStreet()"><br>
                     <small class="errorMessage" id="streeterror"></small><br>
                     <input class="input-left" id="city" type="text" name="city" value="<?php echo $student->city; ?>" onkeyup="validateCity()">
-                    <select id="state" name="state" onchange="validateState()">
+                    <select id="state" name="state">
                         <?php
                             $states = getStates();
                             foreach($states as $state)
@@ -110,7 +110,7 @@ and open the template in the editor.
                     <p>High School:</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="highschool" type="text" name="highschool" value="<?php echo $student->highschool; ?>" onkeyup="validateHighschool()" size="25"><br>
                     <small class="errorMessage" id="highschoolerror"></small><br>
                     <p>Standing:</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <select id="standing" name="standing" onchange="validateStanding()">
+                    <select id="standing" name="standing">
                         <option value="Freshman" <?php if($student->standing==="Freshman"){echo "selected";} ?>>Freshman</option>
                         <option value="Sophomore" <?php if($student->standing==="Sophomore"){echo "selected";} ?>>Sophomore</option>
                         <option value="Junior" <?php if($student->standing==="Junior"){echo "selected";} ?>>Junior</option>
@@ -157,7 +157,7 @@ and open the template in the editor.
                 <fieldset>
                     <p class="first">CYL Alumni:</p>
                     &nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp
-                    <select id="alumni" name="alumni" onchange="validateAlumni()">
+                    <select id="alumni" name="alumni">
                         <option value ="" <?php if($student->alumni===""){echo "selected";} ?>></option>
                         <option class="underscore" disabled>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</option>
                         <option value="Volunteer" <?php if($student->alumni==="Volunteer"){echo "selected";} ?>>Volunteer</option>

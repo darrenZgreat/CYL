@@ -200,6 +200,49 @@
                     }
                 }
             }
+            
+            if($student->fileNameProfilePic != "")
+            {
+                $sql = "SELECT count(file_name) as count FROM user_file_upload WHERE user_id=$id AND file_name='$student->fileNameProfilePic'";
+                $result = $connection->query($sql);
+                foreach($result as $row)
+                {
+                    if($row["count"]==0)
+                    {
+                        $sql = "INSERT INTO user_file_upload VALUES (NULL, '$student->fileNameProfilePic', CURRENT_TIMESTAMP(), $id)";
+                        $connection->exec($sql);
+                    }
+                }
+            }
+            
+            if($student->fileNameLetter != "")
+            {
+                $sql = "SELECT count(file_name) as count FROM user_file_upload WHERE user_id=$id AND file_name='$student->fileNameLetter'";
+                $result = $connection->query($sql);
+                foreach($result as $row)
+                {
+                    if($row["count"]==0)
+                    {
+                        $sql = "INSERT INTO user_file_upload VALUES (NULL, '$student->fileNameLetter', CURRENT_TIMESTAMP(), $id)";
+                        $connection->exec($sql);
+                    }
+                }
+            }
+            
+            if($student->fileNameResume != "")
+            {
+                $sql = "SELECT count(file_name) as count FROM user_file_upload WHERE user_id=$id AND file_name='$student->fileNameResume'";
+                $result = $connection->query($sql);
+                foreach($result as $row)
+                {
+                    if($row["count"]==0)
+                    {
+                       $sql = "INSERT INTO user_file_upload VALUES (NULL, '$student->fileNameResume', CURRENT_TIMESTAMP(), $id)";
+                        $connection->exec($sql); 
+                    }
+                }  
+            }
+            
             $connection=null;
         } catch (Exception $e) {
             echo "EXCEPTION: Update failed : ".$e->getMessage();

@@ -48,10 +48,10 @@ p {
     visibility: hidden;
 }
 #usernameerror {
-    margin-left: 70px;
+    margin-left: 73px;
 } 
 #passworderror, #confirmpassworderror {
-    margin-left: 67px;
+    margin-left: 74px;
 }
 #contactPreference1Infoerror, #contactPreference2Infoerror {
     margin-left: 166px;
@@ -66,13 +66,13 @@ p {
     margin-left: 132px;
 }
 #internshiperror {
-    margin-left: 88px;
+    margin-left: 147px;
 }
 #universityerror {
-    margin-left: 143px;
+    margin-left: 147px;
 }
 #workerror {
-    margin-left: 133px;
+    margin-left: 149px;
 }
 #letteruploaderror, #resumeuploaderror {
     margin-left: 20px;

@@ -159,7 +159,7 @@ function validateElement(id, errorText, regex)
 
 function validateStreet()
 {
-    validateElement("street", "Street Address: required; e.g. 822 Street Way", /^[0-9]+ ([a-z]+ {0,1})+$/i);
+    validateElement("street", "Street Address: required; e.g. 822 Street Way", /^[0-9]+ (([a-z]|[a-z]\.)+ {0,1})+$/i);
 }
 
 function validateCity()
@@ -265,7 +265,7 @@ function validateText(id)
 
 function validateEmail(id)
 {
-    validateElement(id, "Email: e.g. email@cyl.org", /^.+@.+\..+$/);
+    validateElement(id, "Email: e.g. email@cyl.org", /^\S+@\S+\.\S+$/);
 }
 
 function validateContactPreference(id)
